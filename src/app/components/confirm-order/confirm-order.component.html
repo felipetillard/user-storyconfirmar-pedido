@@ -1,0 +1,154 @@
+<div class="container-fluid mt-3">
+
+  <!--Page 0 -->
+  <div>
+    <form name="formGroup" [formGroup]="formGroup" *ngIf="page == 0">
+      <div class="form-group">
+        <div>
+          <label for="inputAddress">Direccion</label>
+          <input
+            formControlName="direccion"
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="San Martin 422"
+          />
+        		<span class="text-danger" *ngIf="formGroup.controls.direccion.touched && formGroup.controls.direccion.invalid">
+                    Dato requerido.
+            </span>
+        </div>
+        <br />
+        <div>
+          <label for="inputState">Ciudad</label>
+          <select id="inputState" class="form-control" formControlName="ciudad">
+            <option selected>Cordoba</option>
+            <option>Rio Cuarto</option>
+            <option>Jesus Maria</option>
+          </select>
+            <span class="text-danger" *ngIf="formGroup.controls.ciudad.touched && formGroup.controls.ciudad.invalid">
+                      Dato requerido.
+            </span>
+        </div>
+        <br />
+        <label for="exampleFormControlTextarea1">Referencia Opcional</label>
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+        ></textarea>
+        <br />
+  
+      </div>
+    </form>
+  </div>
+
+  <!--Page 1 -->
+  <div *ngIf='page == 1'>
+      <h1 class='d-flex justify-content-around '>Metodo de pago?</h1>
+
+      <div class='row d-flex justify-content-around mt-3 text-success'>
+        <h3 >{{this.payMethodStr}}</h3>
+        <button (click)="togglePayMethod()" type="button" class="btn btn-outline-light  text-success">Cambiar</button>
+      </div>
+      <br>
+      <hr>
+     
+    
+
+      <div *ngIf="!payMethod">
+        <form [formGroup]="formGroup" >
+          <div class="col-auto">
+            <input formControlName='nombre' type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Nombre">
+          </div>
+          <span class="text-danger" *ngIf="formGroup.controls.nombre.touched && formGroup.controls.nombre.invalid">
+                      Dato requerido.
+          </span>
+
+          <div class="col-auto">
+            <input formControlName='apellido' type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Apellido">
+          </div>
+           <span class="text-danger" *ngIf="formGroup.controls.apellido.touched && formGroup.controls.apellido.invalid">
+                      Dato requerido.
+            </span>
+
+          <div class="col-auto">
+            <input formControlName='numTarjeta' class="form-control mb-2" id="inlineFormInput" placeholder="Numero de Tarjeta">
+          </div>
+           <span class="text-danger" *ngIf="formGroup.controls.numTarjeta.touched && formGroup.controls.numTarjeta.invalid">
+                      Dato requerido.
+            </span>
+
+          <div class="col-auto">
+              <input formControlName='fechaVencimiento' type="number" class="form-control mb-2" id="inlineFormInput" placeholder="Fecha (MM/AAAA)">
+          </div>
+           <span class="text-danger" *ngIf="formGroup.controls.fechaVencimiento.touched && formGroup.controls.fechaVencimiento.invalid">
+                      Dato requerido.
+            </span>
+
+          <div class="col-auto">
+              <input formControlName='cvc' type="number" class="form-control mb-2" id="inlineFormInput" placeholder="CVC">
+          </div>
+           <span class="text-danger" *ngIf="formGroup.controls.cvc.touched && formGroup.controls.cvc.invalid">
+                      Dato requerido.
+            </span>
+        </form>  
+      </div>
+      
+
+      <div *ngIf="payMethod">
+        <form [formGroup]="formGroup">
+            <div class="row d-flex justify-content-center">
+            <input type="number" class="form-control mb-2 col-9" id="inlineFormInput" placeholder="Ingrese el Monto con el que pagara"><h2 class="col-1">$$</h2>
+          </div>
+        </form>
+      </div>
+
+  </div>
+
+  <!--Page 2 -->
+  <div *ngIf='page == 2'>
+    <h1 class="text-success">Ya casi..</h1>
+    <br>
+    <h3>Cuando desea recibir su pedido?</h3>
+    <div class="row justify-content-end">
+        <div class="col-5 m-2 ">
+          <div class="row m-1">
+            <button (click)="timeYa()" type="button" class="btn btn-outline-danger btn-block">Ya</button>
+          </div> 
+          <div class="row m-1">
+            <button (click)="timeWait()" type="button" class="btn btn-outline-primary btn-block">Puedo Esperar</button>
+          </div> 
+        </div> 
+    </div>
+      
+    <div *ngIf="time" class="m-5">
+      <form [formGroup]="formGroup">
+        <div class="col-auto">
+              <input type="number" class="form-control mb-2" id="inlineFormInput" placeholder="Fecha">
+        </div>
+        <div class="col-auto">
+              <input type="number" class="form-control mb-2" id="inlineFormInput" placeholder="Hora">
+        </div>
+      </form>
+    </div>
+    
+  </div>
+
+
+
+  <div class="mt-2">
+    <div *ngIf=" page > 0 && page < 2">
+    <button (click)='lastPage()' type="submit" class="btn btn-light">{{btnOne}}</button>
+    </div>
+
+    <div *ngIf=' page < 3'>
+    <button (click)='nextPage()' type="submit" class="btn btn-success">{{btnTwo}}</button>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
