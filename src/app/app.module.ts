@@ -7,6 +7,7 @@ import { NavBarComponent} from './components/nav-bar/nav-bar.component'
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 
+
 @NgModule({
   imports:      [ BrowserModule, FormsModule, ReactiveFormsModule ],
   declarations: [ AppComponent, HelloComponent, NavBarComponent, ConfirmOrderComponent ],

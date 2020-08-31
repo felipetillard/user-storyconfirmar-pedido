@@ -78,9 +78,11 @@
                       Dato requerido.
             </span>
 
+        
           <div class="col-auto">
-              <input formControlName='fechaVencimiento' type="number" class="form-control mb-2" id="inlineFormInput" placeholder="Fecha (MM/AAAA)">
+              <input formControlName='fechaVencimiento' type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Fecha (MM/AAAA)">
           </div>
+          
            <span class="text-danger" *ngIf="formGroup.controls.fechaVencimiento.touched && formGroup.controls.fechaVencimiento.invalid">
                       Dato requerido.
             </span>
@@ -124,11 +126,18 @@
     <div *ngIf="time" class="m-5">
       <form [formGroup]="formGroup">
         <div class="col-auto">
-              <input type="number" class="form-control mb-2" id="inlineFormInput" placeholder="Fecha">
+              <input formControlName="fechaEntrega" type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Fecha D/M/AAAA">
         </div>
-        <div class="col-auto">
-              <input type="number" class="form-control mb-2" id="inlineFormInput" placeholder="Hora">
+        <span class="text-danger" *ngIf="formGroup.controls.fechaEntrega.touched && formGroup.controls.fechaEntrega.invalid">
+                      Dato requerido.
+        </span>
+
+         <div class="col-auto">
+              <input formControlName="horaEntrega" class="form-control mb-2" id="inlineFormInput" placeholder="Hora HH:MM">
         </div>
+        <span class="text-danger" *ngIf="formGroup.controls.horaEntrega.touched && formGroup.controls.horaEntrega.invalid">
+                      Dato requerido.
+        </span>
       </form>
     </div>
     
@@ -144,6 +153,12 @@
     <div *ngIf=' page < 3'>
     <button (click)='nextPage()' type="submit" class="btn btn-success">{{btnTwo}}</button>
     </div>
+  </div>
+
+  <div *ngIf="page == 3">
+    <h1 class="text-success "> SU COMPRA SE HA REALIZADO <strong>CORRECTAMENTE</strong></h1>
+    <hr>
+     <button (click)='inicio()' type="submit" class="btn btn-success">Menu</button>
   </div>
 
 
