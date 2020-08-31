@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class ConfirmOrderComponent implements OnInit {
   creditCard:boolean = false;
+  montoPago = 500;
   page:number = 1;
   btnOne:string = 'Atras';
   btnTwo:string = 'Siguiente';
@@ -51,16 +52,25 @@ export class ConfirmOrderComponent implements OnInit {
   timeWait(){
     this.time = true;
   }
+  checkDates(date: string[]){
+    var dateObj = new Date();
+  
+  }
 
   validateForm(){
-    switch(this.page) { 
+   switch(this.page) { 
    case 0: { 
       return (this.formGroup.controls.direccion.invalid && this.formGroup.controls.ciudad.invalid) 
       break; 
    } 
-   case 1: { 
-      return ((this.formGroup.controls.nombre.invalid && this.formGroup.controls.apellido.invalid && this.formGroup.controls.numTarjeta.invalid && this.formGroup.controls.fechaVencimiento.invalid && this.formGroup.controls.cvc.invalid ) || this.formGroup.controls.montoPagar.value > 0 )
-      break; 
+   case 1: {
+     let formCredit = (this.formGroup.controls.nombre.invalid && this.formGroup.controls.apellido.invalid && this.formGroup.controls.numTarjeta.invalid && this.formGroup.controls.fechaVencimiento.invalid && this.formGroup.controls.cvc.invalid); 
+     let formCash = this.formGroup.controls.montoPagar.invalid;
+     let dateArray = this.formGroup.controls.fechaVencimiento.value.split("/");
+ 
+     if(  this.formGroup.controls.montoPagar.value as number < this.montoPago) return true;
+     return formCredit && formCash
+
    } 
    case 2: { 
       //statements; 

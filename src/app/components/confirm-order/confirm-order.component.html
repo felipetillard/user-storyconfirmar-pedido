@@ -1,4 +1,4 @@
-<div class="container-fluid mt-3">
+<div *ngIf="montoPago > 0" class="container-fluid mt-3">
 
   <!--Page 0 -->
   <div>
@@ -45,11 +45,13 @@
   <!--Page 1 -->
   <div *ngIf='page == 1'>
       <h1 class='d-flex justify-content-around '>Metodo de pago?</h1>
-
+    
       <div class='row d-flex justify-content-around mt-3 text-success'>
         <h3 >{{this.payMethodStr}}</h3>
         <button (click)="togglePayMethod()" type="button" class="btn btn-outline-light  text-success">Cambiar</button>
       </div>
+      <br>
+      <p class='d-flex justify-content-around '>Monto a pagar:<strong class="text-danger">{{montoPago | currency}}</strong></p>
       <br>
       <hr>
      
@@ -93,6 +95,8 @@
            <span class="text-danger" *ngIf="formGroup.controls.cvc.touched && formGroup.controls.cvc.invalid">
                       Dato requerido.
             </span>
+
+
         </form>  
       </div>
       
@@ -100,7 +104,7 @@
       <div *ngIf="payMethod">
         <form [formGroup]="formGroup">
             <div class="row d-flex justify-content-center">
-            <input type="number" class="form-control mb-2 col-9" id="inlineFormInput" placeholder="Ingrese el Monto con el que pagara"><h2 class="col-1">$$</h2>
+            <input formControlName="montoPagar" type="number" class="form-control mb-2 col-9" id="inlineFormInput" placeholder="Ingrese el Monto con el que pagara"><h2 class="col-1">$$</h2>
           </div>
         </form>
       </div>
