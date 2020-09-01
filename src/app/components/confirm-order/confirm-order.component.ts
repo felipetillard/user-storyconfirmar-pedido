@@ -54,8 +54,10 @@ export class ConfirmOrderComponent implements OnInit {
   }
   checkDates(date: number[]){
     var dateObj = new Date();
-    if( date[0] < (dateObj.getMonth() + 1) ) return true;
-    if( date[0] < dateObj.getFullYear()) return true;
+ //   if (date[0][0] == 0) date[0] = date[0][1];
+    if( date[0] as number < (dateObj.getMonth() + 1) ) return true;
+    if( date[1] as number < dateObj.getFullYear()) return true;
+    return false;
   }
 
   validateForm(){
@@ -68,9 +70,15 @@ export class ConfirmOrderComponent implements OnInit {
      let formCredit = (this.formGroup.controls.nombre.invalid && this.formGroup.controls.apellido.invalid && this.formGroup.controls.numTarjeta.invalid && this.formGroup.controls.fechaVencimiento.invalid && this.formGroup.controls.cvc.invalid); 
      let formCash = this.formGroup.controls.montoPagar.invalid;
      let dateArray = this.formGroup.controls.fechaVencimiento.value.split("/");
-   //  if(this.checkDates(dateArray)) return true;
-     if(  this.formGroup.controls.montoPagar.value as number < this.montoPago) return true;
-     return formCredit && formCash
+
+
+    if(!formCredit){
+      if(this.checkDates(dateArray)) return false;
+     }
+    if(!formCash){
+        if( this.formGroup.controls.montoPagar.value as number > this.montoPago) return false
+      }
+    return true;
 
    } 
    case 2: { 
