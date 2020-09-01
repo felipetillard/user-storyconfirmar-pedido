@@ -71,18 +71,21 @@ export class ConfirmOrderComponent implements OnInit {
      let dateArray = this.formGroup.controls.fechaVencimiento.value.split("/");
 
     console.log(formCredit);
-    console.log(this.checkDates(dateArray));
     if(!formCredit){
-     
-      if(!this.checkDates(dateArray)) return false;
-     console.log('fff');
-
+      if(!this.checkDates(dateArray))
+      {
+        console.log('fff'); 
+        return false;
+       } 
      }
-    if(!formCash){
-        if( this.formGroup.controls.montoPagar.value as number >= this.montoPago)return false;
-      }
+    if(!formCash)
+    {
+        if( this.formGroup.controls.montoPagar.value as number >= this.montoPago)
+        {
+          return false;
+        }
+    }
     return true;
-
    } 
    case 2: { 
       //statements; 
