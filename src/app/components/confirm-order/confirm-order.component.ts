@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class ConfirmOrderComponent implements OnInit {
   creditCard:boolean = false;
   montoPago = 500;
-  page:number = 1;
+  page:number = 2;
   btnOne:string = 'Atras';
   btnTwo:string = 'Siguiente';
   payMethod:boolean = false; 
@@ -59,6 +59,8 @@ export class ConfirmOrderComponent implements OnInit {
     return false;
   }
 
+
+
   validateForm(){
    switch(this.page) { 
    case 0: { 
@@ -70,7 +72,6 @@ export class ConfirmOrderComponent implements OnInit {
      let formCash = this.formGroup.controls.montoPagar.invalid;
      let dateArray = this.formGroup.controls.fechaVencimiento.value.split("/");
 
-    console.log(formCredit);
     if(!formCredit){
       if(!this.checkDates(dateArray))
       {
@@ -87,12 +88,27 @@ export class ConfirmOrderComponent implements OnInit {
     return true;
    } 
    case 2: { 
-      //statements; 
+      let dateArray = this.formGroup.controls.fechaEntrega.value.split("/");
+      this.checkdeliverDate(dateArray);
       break; 
    } 
 }  }
 
+
+checkdeliverDate(date: number[]){
+  var dateObj = new Date(date[2],date[1], date[0]);
+  var dateAct = new Date(date[2],date[1], date[0]);
+  console.log(dateObj > dateAct)
+    if (date[1] as number > dateObj.getFullYear()) return false;
+    if( date[0] as number > (dateObj.getMonth() + 1)) return false;
+    if( date[0] as number < (dateObj.getMonth() + 1)) return true;
+    return false;
+}
+
 inicio(){
+  if (this.validateForm()) {
+      return;
+    }
   this.page = 0;
 }
 
