@@ -54,7 +54,7 @@ export class ConfirmOrderComponent implements OnInit {
   }
   checkDates(date: number[]){
     var dateObj = new Date();
-    if (date[1] as number < dateObj.getFullYear()) return true;
+    if (date[1] as number > dateObj.getFullYear()) return false;
     if( date[0] as number < (dateObj.getMonth() + 1)) return true;
     return false;
   }
@@ -74,7 +74,6 @@ export class ConfirmOrderComponent implements OnInit {
     if(!formCredit){
       if(!this.checkDates(dateArray))
       {
-        console.log('fff'); 
         return false;
        } 
      }
