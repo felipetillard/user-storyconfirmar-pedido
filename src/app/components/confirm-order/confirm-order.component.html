@@ -93,7 +93,7 @@
             <input formControlName='numTarjeta' class="form-control mb-2" id="inlineFormInput" placeholder="Numero de Tarjeta">
           </div>
            <span class="text-danger" *ngIf="formGroup.controls.numTarjeta.touched && formGroup.controls.numTarjeta.invalid">
-                      Dato requerido.
+                      Ingrese una terjeta VISA valida
             </span>
 
         
@@ -102,14 +102,14 @@
           </div>
           
            <span class="text-danger" *ngIf="formGroup.controls.fechaVencimiento.touched && formGroup.controls.fechaVencimiento.invalid">
-                      Dato requerido.
+                      Su tarjeta ya vencio.
             </span>
 
           <div class="col-auto">
               <input formControlName='cvc' type="number" class="form-control mb-2" id="inlineFormInput" placeholder="CVC">
           </div>
            <span class="text-danger" *ngIf="formGroup.controls.cvc.touched && formGroup.controls.cvc.invalid">
-                      Dato requerido.
+                      Ingrese un CVC valido
             </span>
 
 
@@ -149,14 +149,14 @@
               <input formControlName="fechaEntrega" type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Fecha D/M/AAAA">
         </div>
         <span class="text-danger" *ngIf="formGroup.controls.fechaEntrega.touched && formGroup.controls.fechaEntrega.invalid">
-                      Dato requerido.
+                      Ingrese una fecha valida
         </span>
 
          <div class="col-auto">
               <input formControlName="horaEntrega" class="form-control mb-2" id="inlineFormInput" placeholder="Hora HH:MM">
         </div>
         <span class="text-danger" *ngIf="formGroup.controls.horaEntrega.touched && formGroup.controls.horaEntrega.invalid">
-                      Dato requerido.
+                      Ingrese un horario valido
         </span>
       </form>
     </div>
