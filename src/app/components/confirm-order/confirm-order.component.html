@@ -25,11 +25,10 @@
             formControlName="numeroCalle"
             type="number"
             class="form-control"
-            id="number"
             placeholder="422"
           />
-        		<span class="text-danger" *ngIf="formGroup.controls.direccion.touched && formGroup.controls.direccion.invalid">
-                    Ingrese una Direccion Valida
+        		<span class="text-danger" *ngIf="formGroup.controls.numeroCalle.touched && formGroup.controls.numeroCalle.invalid">
+                    Ingrese un numero de Calle
             </span>
         </div>
 

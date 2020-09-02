@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class ConfirmOrderComponent implements OnInit {
   creditCard:boolean = false;
   montoPago = 500;
-  page:number = 0;
+  page:number = 1;
   btnOne:string = 'Atras';
   btnTwo:string = 'Siguiente';
   payMethod:boolean = false; 
@@ -64,8 +64,9 @@ export class ConfirmOrderComponent implements OnInit {
   validateForm(){
    switch(this.page) { 
    case 0: { 
-      return (this.formGroup.controls.direccion.invalid && this.formGroup.controls.ciudad.invalid) 
-      break; 
+      console.log(this.formGroup.controls.direccion.invalid && this.formGroup.controls.ciudad.invalid && this.formGroup.controls.numeroCalle.invalid);
+      if (this.formGroup.controls.direccion.invalid || this.formGroup.controls.ciudad.invalid || this.formGroup.controls.numeroCalle.invalid) return true;
+      return false;
    } 
    case 1: {
      let formCredit = (this.formGroup.controls.nombre.invalid && this.formGroup.controls.apellido.invalid && this.formGroup.controls.numTarjeta.invalid && this.formGroup.controls.fechaVencimiento.invalid && this.formGroup.controls.cvc.invalid); 
@@ -112,7 +113,7 @@ inicio(){
 
   creatForm(){
     this.formGroup = this.formBuilder.group({
-      direccion:['', Validators.required],
+      direccion:['', [Validators.required,Validators.pattern('^[a-zA-Z0-9@]+$')]],
       numeroCalle:['', Validators.required],
       ciudad: ['', Validators.required],
       nombre: ['', [Validators.required, Validators.pattern('[a-zA-Z]{1,30}') ]],
