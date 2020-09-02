@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class ConfirmOrderComponent implements OnInit {
   creditCard:boolean = false;
   montoPago = 500;
-  page:number = 2;
+  page:number = 0;
   btnOne:string = 'Atras';
   btnTwo:string = 'Siguiente';
   payMethod:boolean = false; 
@@ -89,32 +89,31 @@ export class ConfirmOrderComponent implements OnInit {
    } 
    case 2: { 
       let dateArray = this.formGroup.controls.fechaEntrega.value.split("/");
-      this.checkdeliverDate(dateArray);
+      let timeArray = this.formGroup.controls.horaEntrega.value.split(":");
+      return this.dateTimeIsWrong(dateArray, timeArray);
       break; 
    } 
 }  }
 
 
-checkdeliverDate(date: number[]){
-  var dateObj = new Date(date[2],date[1], date[0]);
-  var dateAct = new Date(date[2],date[1], date[0]);
-  console.log(dateObj > dateAct)
-    if (date[1] as number > dateObj.getFullYear()) return false;
-    if( date[0] as number > (dateObj.getMonth() + 1)) return false;
-    if( date[0] as number < (dateObj.getMonth() + 1)) return true;
-    return false;
-}
+dateTimeIsWrong(date: number[], time){
+  var ingresada = new Date(date[2],date[1] - 1, date[0], time[0], time[1]);
+  var actual = new Date()
+  return ingresada < actual;
+ }
 
 inicio(){
   if (this.validateForm()) {
       return;
     }
   this.page = 0;
+  this.formGroup.reset();
 }
 
   creatForm(){
     this.formGroup = this.formBuilder.group({
       direccion:['', Validators.required],
+      numeroCalle:['', Validators.required],
       ciudad: ['', Validators.required],
       nombre: ['', [Validators.required, Validators.pattern('[a-zA-Z]{1,30}') ]],
       apellido:['', [Validators.required, Validators.pattern('[a-zA-Z]{1,50}') ]],

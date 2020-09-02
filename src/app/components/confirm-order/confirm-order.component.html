@@ -11,12 +11,29 @@
             type="text"
             class="form-control"
             id="inputAddress"
-            placeholder="San Martin 422"
+            placeholder="San Martin "
           />
         		<span class="text-danger" *ngIf="formGroup.controls.direccion.touched && formGroup.controls.direccion.invalid">
-                    Dato requerido.
+                    Ingrese una Direccion Valida
             </span>
         </div>
+        <br/>
+         
+        <div>
+          <label for="inputAddress">Numero de Calle</label>
+          <input
+            formControlName="numeroCalle"
+            type="number"
+            class="form-control"
+            id="number"
+            placeholder="422"
+          />
+        		<span class="text-danger" *ngIf="formGroup.controls.direccion.touched && formGroup.controls.direccion.invalid">
+                    Ingrese una Direccion Valida
+            </span>
+        </div>
+
+
         <br />
         <div>
           <label for="inputState">Ciudad</label>
