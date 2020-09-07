@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class ConfirmOrderComponent implements OnInit {
   creditCard:boolean = false;
-  montoPago = 500;
+  montoPago:number = 500;
   page:number = 0;
   btnOne:string = 'Atras';
   btnTwo:string = 'Siguiente';
@@ -110,6 +110,7 @@ inicio(){
   this.page = 0;
   this.formGroup.reset();
 }
+
 
   creatForm(){
     this.formGroup = this.formBuilder.group({
