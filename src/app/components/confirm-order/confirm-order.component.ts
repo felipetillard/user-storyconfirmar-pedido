@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class ConfirmOrderComponent implements OnInit {
   creditCard:boolean = false;
   montoPago:number = 500;
-  page:number = 0;
+  page:number = 2;
   btnOne:string = 'Atras';
   btnTwo:string = 'Siguiente';
   payMethod:boolean = false; 
@@ -53,10 +53,10 @@ export class ConfirmOrderComponent implements OnInit {
     this.time = true;
   }
   checkDates(date: number[]){
-    var dateObj = new Date();
-    if (date[1] as number > dateObj.getFullYear()) return false;
-    if( date[0] as number < (dateObj.getMonth() + 1)) return true;
-    return false;
+    if(date[0]>12) return false;
+    var ingresada = new Date(date[1],date[0] - 1, 1,0, 0);
+    var actual = new Date();
+    return ingresada > actual;
   }
 
 
@@ -69,12 +69,12 @@ export class ConfirmOrderComponent implements OnInit {
       return false;
    } 
    case 1: {
-     let formCredit = (this.formGroup.controls.nombre.invalid && this.formGroup.controls.apellido.invalid && this.formGroup.controls.numTarjeta.invalid && this.formGroup.controls.fechaVencimiento.invalid && this.formGroup.controls.cvc.invalid); 
+     let formCredit = (this.formGroup.controls.nombre.invalid || this.formGroup.controls.apellido.invalid || this.formGroup.controls.numTarjeta.invalid || this.formGroup.controls.fechaVencimiento.invalid || this.formGroup.controls.cvc.invalid)?false:true; 
      let formCash = this.formGroup.controls.montoPagar.invalid;
      let dateArray = this.formGroup.controls.fechaVencimiento.value.split("/");
 
-    if(!formCredit){
-      if(!this.checkDates(dateArray))
+    if(formCredit){
+      if(this.checkDates(dateArray))
       {
         return false;
        } 
@@ -98,6 +98,7 @@ export class ConfirmOrderComponent implements OnInit {
 
 
 dateTimeIsWrong(date: number[], time){
+  if(date[1]>12) return true;
   var ingresada = new Date(date[2],date[1] - 1, date[0], time[0], time[1]);
   var actual = new Date()
   return ingresada < actual;
@@ -114,7 +115,7 @@ inicio(){
 
   creatForm(){
     this.formGroup = this.formBuilder.group({
-      direccion:['', [Validators.required,Validators.pattern('^[a-zA-Z0-9@]+$')]],
+      direccion:['', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]],
       numeroCalle:['', Validators.required],
       ciudad: ['', Validators.required],
       nombre: ['', [Validators.required, Validators.pattern('[a-zA-Z]{1,30}') ]],
