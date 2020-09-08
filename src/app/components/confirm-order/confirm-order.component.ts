@@ -99,6 +99,7 @@ export class ConfirmOrderComponent implements OnInit {
 
 dateTimeIsWrong(date: number[], time){
   if(date[1]>12) return true;
+  if(date[0]>31) return true;
   var ingresada = new Date(date[2],date[1] - 1, date[0], time[0], time[1]);
   var actual = new Date()
   return ingresada < actual;
@@ -118,8 +119,8 @@ inicio(){
       direccion:['', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]],
       numeroCalle:['', Validators.required],
       ciudad: ['', Validators.required],
-      nombre: ['', [Validators.required, Validators.pattern('[a-zA-Z]{1,30}') ]],
-      apellido:['', [Validators.required, Validators.pattern('[a-zA-Z]{1,50}') ]],
+      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$') ]],
+      apellido:['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$') ]],
       numTarjeta:['',[Validators.required, Validators.pattern('^4[0-9]{12}(?:[0-9]{3})?$')]],
       fechaVencimiento: ['', [Validators.required, Validators.pattern('(0[1-9]|10|11|12)/20[0-9]{2}$') ]],
       cvc: ['', [Validators.required, Validators.pattern('[0-9]{3}')] ],
